@@ -1,38 +1,40 @@
+body {
+ margin: 0;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+}
+
+.chance-buttons {
+  display: flex;
+  gap: 10px;
+  width: 95%;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.chance-buttons button {
+  width: 100%;
+  height: 50px;
   color: white;
+  border: 4px solid transparent;
+  border-radius: 10px;
+  background-color: rgb(39, 36, 44);
+  padding: 0;
+  transition: 0.2s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.chance-buttons button:hover {
+  border: 4px solid rgb(186, 156, 235);
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chance-buttons button:focus {
+  background-color: rgb(68, 56, 87);
+  border: 4px solid rgb(186, 156, 235);
 }

@@ -1,27 +1,41 @@
+import "./App.css";
+import io from "socket.io-client";
+import { useEffect, useState } from "react";
 
-import './App.css';
-import io from 'socket.io-client';
-import {useEffect} from 'react';
-const socket = io.connect('http://localhost:3001');
+const socket = io.connect("http://localhost:3001");
 
 function App() {
+  //Room State
+  const [room, setRoom] = useState("");
+
+  /*
+  const joinRoom = () => {
+    setRoom(1)
+    socket.emit("join_room", room);
+  };
 
   const sendMessage = () => {
-    // Emit sends messages to the server? Double check that.
-    socket.emit('send_message', {message: 'hello'});
-  }
+    socket.emit("send_message", { message, room });
+  };
 
-  // Hook called whenever we recive a message. 
   useEffect(() => {
-    socket.on('recieve_message', (data) => {
-      alert(data.message);
+    socket.on("receive_message", (data) => {
+      setMessageReceived(data.message);
     });
   }, [socket]);
+  */
+
+  const sendPercentage = (e) => {
+    socket.emit('send_percentage', e.target.value)
+  }
 
   return (
     <div className="App">
-      <input placeholder='Message'></input>
-      <button onClick={sendMessage}>Send Message</button>
+      <h1>Chance</h1>
+      <div className="chance-buttons">
+        <button value='0%' onClick={sendPercentage}>0%</button>
+      </div>
+
     </div>
   );
 }
