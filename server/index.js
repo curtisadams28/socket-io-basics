@@ -12,7 +12,7 @@ let votes = [];
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "192.168.1.109:3000",
     methods: ["GET", "POST"],
   },
 });
