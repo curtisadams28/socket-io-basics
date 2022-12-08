@@ -1,5 +1,6 @@
 import "./App.css";
 import PlayerSelect from './components/PlayerSelect';
+import GmPage from './components/gmPage';
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
 
@@ -15,6 +16,7 @@ function App() {
   return (
     <div className="wrapper">
       <PlayerSelect playerType = {playerType} setPlayerType = {setPlayerType}/>
+      <GmPage playerType = {playerType}/>
     </div>
   );
 }
