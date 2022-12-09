@@ -1,6 +1,4 @@
 function PlayerSelect(props) {
-  console.log(props);
-
   function handleClick(e) {
     props.setPlayerType(e.target.value);
   }
