@@ -1,16 +1,28 @@
-  /*
-  const joinRoom = () => {
-    setRoom(1)
-    socket.emit("join_room", room);
-  };
+import { useState } from "react";
 
-  const sendMessage = () => {
-    socket.emit("send_message", { message, room });
-  };
+function VotingModal(props) {
+  const [timeCount, setTimerCount] = useState(props.checkTime);
 
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageReceived(data.message);
-    });
-  }, [socket]);
-  */
+  function timer() {
+    console.log(props.checkTime);
+    setInterval(() => {
+      setTimerCount(timeCount - 1000);
+    }, 1000);
+  }
+
+  if (props.check === true) {
+    timer();
+    if (timeCount === 0) {
+      props.setCheck(false);
+    }
+
+    return (
+      <div className="voting-modal">
+        <span>{timeCount}</span>
+        <h1>Voting</h1>
+      </div>
+    );
+  }
+}
+
+export default VotingModal;
