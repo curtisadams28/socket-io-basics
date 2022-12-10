@@ -8,7 +8,7 @@ app.use(cors());
 
 const server = http.createServer(app);
 
-let votes = [];
+let allVotes = [];
 
 const io = new Server(server, {
   cors: {
@@ -21,12 +21,19 @@ io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
 
-  socket.on("send_percentage", (data) => {
+  socket.on("send_vote", (data) => {
     console.log(data);
-    storeVotes(data);
-    console.log(votes);
-    socket.broadcast.emit("receive_message", data);
+    allVotes.push(data);
+    console.log(`All Votes: ${allVotes.values}`)
+    // Need a delay here to allow all votes to come in.
+    socket.emit("receive_vote", allVotes);``
   });
+
+  socket.on("send_modal_info", (data) => {
+    //console.log(data);
+    io.sockets.emit("receive_modal_info", data);
+  });
+
 });
 
 server.listen(3001, () => {
