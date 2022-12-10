@@ -20,17 +20,26 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
-
+  let eventEmitted = false;
   socket.on("send_vote", (data) => {
     console.log(data);
     allVotes.push(data);
     console.log(`All Votes: ${allVotes.values}`)
-    // Need a delay here to allow all votes to come in.
-    socket.emit("receive_vote", allVotes);``
+
+    // Check if the "receive_vote" event has already been emitted.
+    if (!eventEmitted) {
+      // Use setTimeout to add a delay before emitting the "receive_vote" event.
+      setTimeout(() => {
+        socket.emit("receive_vote", allVotes);
+        eventEmitted = true; // Set the flag variable to true to prevent the event from being emitted again.
+      }, 1000); // The delay time is 1000 milliseconds, or 1 second.
+    }
+
   });
 
   socket.on("send_modal_info", (data) => {
     //console.log(data);
+    eventEmitted = false;
     io.sockets.emit("receive_modal_info", data);
   });
 
@@ -39,12 +48,6 @@ io.on("connection", (socket) => {
 server.listen(3001, () => {
   console.log("SERVER IS RUNNING");
 });
-
-
-function storeVotes(vote) {
-  votes.push(vote);
-}
-
 
 /*
 
