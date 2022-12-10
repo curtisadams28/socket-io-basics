@@ -12,30 +12,29 @@ function VoteResult() {
   useEffect(() => {
     socket.on('receive_vote', (data) => {
       console.log(data);
-      //console.log(data);
-      //getAverages(data);
-      //setSkillPercentage(data.vote);
-      //setDamage(data.damage);
+      getAverages(data);
     });
   }, [socket]);
 
   function getAverages(votesArray) {
-    let totalSkillPercentage;
-    let totalDamage;
+    let totalSkillPercentage = 0;
+    let totalDamage = 0;
 
     console.log(votesArray);
 
     for (let i = 0; i < votesArray.length; i++) {
-      totalSkillPercentage =+ votesArray[i].vote;
-      totalDamage =+ votesArray[i].damage;
-      console.log(`Damage: ${votesArray[i].damage}`);
+      //console.log(`User ${i + 1}       Damage: ${votesArray[i].damage}`);
+
+      totalSkillPercentage += votesArray[i].vote;
+      totalDamage += votesArray[i].damage;
     }
-    console.log(`Totals: ${totalSkillPercentage, totalDamage}`);
+    console.log(totalDamage);
   }
 
  return(
   <div className="vote-result">
     <span>{skillPercentage}</span>
+    <span>{damage}</span>
   </div>
  );
 }

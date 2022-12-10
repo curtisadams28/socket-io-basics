@@ -40,10 +40,10 @@ function VotingModal(props) {
 
 
   function handleClick(e) {
-    setVote(e.target.value);
+    setVote(parseFloat(e.target.value));
   }
   function handleClickDamage(e) {
-    setDamage(e.target.value)
+    setDamage(parseInt(e.target.value));
   }
 
   function sendData() {

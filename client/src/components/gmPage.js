@@ -19,7 +19,7 @@ function GmPage(props) {
   }
 
   function sendData() {
-    socket.emit('send_modal_info', {setVoteModal: true, setVoteModalTime: timeLimit * 1000});
+    socket.emit('start_vote', {setVoteModal: true, setVoteModalTime: timeLimit * 1000});
   }
 
   return (

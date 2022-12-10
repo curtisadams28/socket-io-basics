@@ -7,8 +7,8 @@ const cors = require("cors");
 app.use(cors());
 
 const server = http.createServer(app);
-
 let allVotes = [];
+const voteTimeout = 3000;
 
 const io = new Server(server, {
   cors: {
@@ -18,29 +18,25 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
-
-  let eventEmitted = false;
   socket.on("send_vote", (data) => {
-    console.log(data);
     allVotes.push(data);
+
     console.log(`All Votes: ${allVotes.values}`)
-
-    // Check if the "receive_vote" event has already been emitted.
-    if (!eventEmitted) {
-      // Use setTimeout to add a delay before emitting the "receive_vote" event.
-      setTimeout(() => {
-        socket.emit("receive_vote", allVotes);
-        eventEmitted = true; // Set the flag variable to true to prevent the event from being emitted again.
-      }, 1000); // The delay time is 1000 milliseconds, or 1 second.
-    }
-
   });
 
-  socket.on("send_modal_info", (data) => {
-    //console.log(data);
-    eventEmitted = false;
+  // R
+  socket.on("start_vote", (data) => {
+    allVotes = [];
     io.sockets.emit("receive_modal_info", data);
+
+    let time = data.setVoteModalTime + voteTimeout;
+    const interval = setInterval(() => {
+      time -= 1000;
+      if (time <= 1000) {
+        clearInterval(interval);
+        socket.emit("receive_vote", allVotes);
+      }
+    }, 1000);
   });
 
 });
@@ -48,6 +44,10 @@ io.on("connection", (socket) => {
 server.listen(3001, () => {
   console.log("SERVER IS RUNNING");
 });
+
+function createCountdown(timeMax, voteTimeout) {
+
+}
 
 /*
 
