@@ -31,12 +31,22 @@ function VoteResult() {
     console.log(totalDamage);
   }
 
- return(
-  <div className="vote-result">
-    <span>{skillPercentage}</span>
-    <span>{damage}</span>
-  </div>
- );
+  // The vote result should return the following:
+  // 1. Each vote in a list
+  // 2. Each damage in a list
+  // 3. Average Vote
+  // 4. Average Damage
+  // 5. The Roll
+  // 6. Success or Fail for votes
+
+
+  return(
+    <div className="vote-result">
+
+      <span>{skillPercentage}</span>
+      <span>{damage}</span>
+    </div>
+  );
 }
 
 export default VoteResult;
