@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 // Create a React context for the socket
 const SocketContext = React.createContext(null);
 
-const socket = io.connect("http://192.168.1.109:3001");
+const socket = io.connect("http://192.168.1.120:3001");
 
 function App() {
 

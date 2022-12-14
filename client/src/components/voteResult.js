@@ -6,12 +6,14 @@ function VoteResult() {
 
   const [skillPercentage, setSkillPercentage] = useState(null);
   const [damage, setDamage] = useState(null);
+  const [skillPassOrFail, setSkillPassOrFail] = useState(null);
+  const [diceRoll, setDiceRoll] = useState(null);
 
   const socket = useContext(SocketContext);
 
   useEffect(() => {
     socket.on('receive_vote', (data) => {
-      console.log(data);
+      //console.log(data);
       getAverages(data);
     });
   }, [socket]);
@@ -19,8 +21,9 @@ function VoteResult() {
   function getAverages(votesArray) {
     let totalSkillPercentage = 0;
     let totalDamage = 0;
+    let dice = Math.random();
 
-    console.log(votesArray);
+    //console.log(`Votes Array: ${votesArray}`);
 
     for (let i = 0; i < votesArray.length; i++) {
       //console.log(`User ${i + 1}       Damage: ${votesArray[i].damage}`);
@@ -28,8 +31,28 @@ function VoteResult() {
       totalSkillPercentage += votesArray[i].vote;
       totalDamage += votesArray[i].damage;
     }
-    console.log(totalDamage);
+
+    //console.log(votesArray.length);
+
+    setSkillPercentage(totalSkillPercentage / votesArray.length);
+    setDamage(totalDamage);
+
+
+    
+
+
+    //console.log(`Total Damage: ${totalDamage}`);
+    //console.log(`Total Votes: ${skillPercentage}`);
   }
+
+  function roundToNearest(num) {
+    if (num >= 0.5) {
+      return Math.round(num);
+    } else {
+      return Math.floor(num);
+    }
+  }
+  
 
   // The vote result should return the following:
   // 1. Each vote in a list
@@ -42,7 +65,7 @@ function VoteResult() {
 
   return(
     <div className="vote-result">
-
+      <h1></h1>
       <span>{skillPercentage}</span>
       <span>{damage}</span>
     </div>
