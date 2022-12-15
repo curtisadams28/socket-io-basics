@@ -1,40 +1,259 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+:root {
+    --body-bg: #2b2b2e;
+    --btn-bg: #724bbb;
+    --btn-bg-focus: #3e2a63;
+    --title: #FFFFFF;
+}
+
 body {
  margin: 0;
+ font-family: 'roboto', sans-serif;
 }
 
-.App {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+.wrapper {
+    max-width: 500px;
 }
 
-.chance-buttons {
-  display: flex;
-  gap: 10px;
-  width: 95%;
-  justify-content: center;
+
+
+.title {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background-color: var(--body-bg);
+    color: var(--title);
+    align-items: center;
+    margin-bottom: 20px;
+}
+.title h1 {
+    margin-left: 20px;
 }
 
-.chance-buttons button {
-  width: 100%;
-  height: 50px;
-  color: white;
-  border: 4px solid transparent;
-  border-radius: 10px;
-  background-color: rgb(39, 36, 44);
-  padding: 0;
-  transition: 0.2s ease;
+.content {
+    margin: 0 20px;
 }
 
-.chance-buttons button:hover {
-  border: 4px solid rgb(186, 156, 235);
-  cursor: pointer;
+
+
+.btn {
+    background-color: var(--btn-bg);
+    border-radius: 10px;
+    border: 0;
+    height: 60px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    width: 200px;
 }
 
-.chance-buttons button:focus {
-  background-color: rgb(68, 56, 87);
-  border: 4px solid rgb(186, 156, 235);
+.btn:focus {
+    background-color: var(--btn-bg-focus);
 }
+
+/* GM PAGE */
+
+.player-selector-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-limit {
+    display: flex;
+    align-items: center;
+}
+
+.time-limit p {
+    font-size: 1.5em;
+    margin-left: auto;
+}
+
+.time-limit * {
+    margin-top: 0;
+}
+
+
+
+/* Voting Modal */
+.voting-modal-title {
+    display: flex;
+}
+
+.voting-modal-title span {
+    margin-left: auto;
+    border: 3px solid white;
+    margin-right: 20px;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+/* Range Slider */
+
+.range-slider {
+    width: 100%;
+}
+
+.range-slider-title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.range-slider-title p {
+    margin-left: auto;
+    font-size: 1.5em;
+}
+
+.range-labels {
+    display: flex;
+    margin-top: -10px;
+    opacity: 0.7;
+}
+
+.right-label {
+    margin-left: auto;
+}
+
+.slider::-webkit-slider-thumb {
+    background: red;
+}
+
+/* RESULTS PAGE */
+
+.result-info {
+    background-color: #e6e6e6;
+    display: flex;
+    height: 80px;
+}
+
+.result-box {
+    background-color: #121213;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 96, 96);
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.info-box {
+    font-weight: bold;
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+
+}
+
+.info-box * {
+    margin: 0;
+}
+
+
+
+
+/* RANGE SLIDER STYPES */
+/* https://www.cssportal.com/style-input-range/ */
+
+input[type=range] {
+    height: 31px;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #E9E9F2;
+    border-radius: 5px;
+    border: 0px solid #000000;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 0px solid #000000;
+    height: 25px;
+    width: 25px;
+    border-radius: 48px;
+    background: #724BBB;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -7.5px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #E9E9F2;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #E9E9F2;
+    border-radius: 5px;
+    border: 0px solid #000000;
+  }
+  input[type=range]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 0px solid #000000;
+    height: 25px;
+    width: 25px;
+    border-radius: 48px;
+    background: #724BBB;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #E9E9F2;
+    border: 0px solid #000000;
+    border-radius: 10px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #E9E9F2;
+    border: 0px solid #000000;
+    border-radius: 10px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  input[type=range]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 0px 0px 0px #000000;
+    border: 0px solid #000000;
+    height: 25px;
+    width: 25px;
+    border-radius: 48px;
+    background: #724BBB;
+    cursor: pointer;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #E9E9F2;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #E9E9F2;
+  }
+  

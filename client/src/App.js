@@ -22,12 +22,21 @@ function App() {
   const [playerType, setPlayerType] = useState(null);
   const [voteModal, setVoteModal] = useState(false);
   const [voteModalTime, setVoteModalTime] = useState(4000);
+  const [showVoteResult, setShowVoteResult] = useState(false);
+  const [voteResult, setVoteResult] = useState(null);
 
   useEffect(() => {
     socket.on('receive_modal_info', (data) => {
       //console.log(data);
       setVoteModal(data.setVoteModal);
       setVoteModalTime(data.setVoteModalTime);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on('receive_vote', (data) => {
+      setShowVoteResult(true);
+      setVoteResult(data);
     });
   }, [socket]);
 
@@ -38,7 +47,7 @@ function App() {
         {(playerType === 'gm') ? <GmPage playerType = {playerType} voteModal = {voteModal} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>: null}
         {(playerType === 'player') ? <PlayerPage />: null}
         {voteModal ? <VotingModal voteModalTime = {voteModalTime} setVoteModal = {setVoteModal}/> : null }
-        <VoteResult />
+        {showVoteResult ? <VoteResult voteResult = {voteResult} setShowVoteResult = {setShowVoteResult}/> : null}
       </SocketContext.Provider>
     </div>
   );

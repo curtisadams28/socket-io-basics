@@ -52,12 +52,6 @@ function createCountdown(timeMax, voteTimeout) {
 /*
 
 // TODO
-- We need two types of users, players and gm.
-- Tie a socket id to a player/gm. Users will be able to select from a menu.
-- Validation to stop a player from putting in multiple votes (can be done on font-end for now)
-- The vote needs to be called by the GM.
-    - Timer
-- Caluclation of the vote average.
-- Display for the outcome.
+- Handle no votes sent from clients.
 
 */

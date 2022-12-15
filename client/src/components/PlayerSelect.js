@@ -6,9 +6,13 @@ function PlayerSelect(props) {
   if (props.playerType === null) {
     return (
       <div className="player-selector">
-        <h1>Select User</h1>
-        <button value='gm' onClick={handleClick}>Game Master</button>
-        <button value='player' onClick={handleClick}>Player</button>
+        <div className="title">
+          <h1>Select User</h1>
+        </div>
+        <div className="player-selector-buttons">
+          <button className='btn' value='gm' onClick={handleClick}>Game Master</button>
+          <button className='btn' value='player' onClick={handleClick}>Player</button>
+        </div>
       </div>
     );
   }

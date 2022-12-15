@@ -2,55 +2,44 @@ import { useState, useEffect } from "react";
 import React, { useContext } from "react";
 import { SocketContext } from "../App"
 
-function VoteResult() {
-
-  const [skillPercentage, setSkillPercentage] = useState(null);
-  const [damage, setDamage] = useState(null);
-  const [skillPassOrFail, setSkillPassOrFail] = useState(null);
-  const [diceRoll, setDiceRoll] = useState(null);
+function VoteResult({voteResult, setShowVoteResult}) {
+  const [fateResult, setFateResult] = useState(null);
+  const [fateVoteList, setFateVoteList] = useState(null);
+  const [fateAvgVote, setFateAvgVote] = useState(null);
+  const [resolveResult, setResolveResult] = useState(null);
+  const [resolveVoteList, setResolveVoteList] = useState(null);
 
   const socket = useContext(SocketContext);
 
   useEffect(() => {
-    socket.on('receive_vote', (data) => {
-      //console.log(data);
-      getAverages(data);
-    });
-  }, [socket]);
+    getAverages(voteResult)
+  }, [voteResult]);
 
   function getAverages(votesArray) {
     let totalSkillPercentage = 0;
     let totalDamage = 0;
-    let dice = Math.random();
-
-    //console.log(`Votes Array: ${votesArray}`);
+    let dice = Math.floor(Math.random() * 11);
 
     for (let i = 0; i < votesArray.length; i++) {
-      //console.log(`User ${i + 1}       Damage: ${votesArray[i].damage}`);
-
       totalSkillPercentage += votesArray[i].vote;
       totalDamage += votesArray[i].damage;
     }
 
-    //console.log(votesArray.length);
+    setFateResult(dice);
+    setFateAvgVote(Math.round(totalSkillPercentage / votesArray.length));
+    setFateVoteList(joinVoteArray(votesArray, 'vote'));
 
-    setSkillPercentage(totalSkillPercentage / votesArray.length);
-    setDamage(totalDamage);
+    setResolveResult(Math.round(totalDamage / votesArray.length));
+    setResolveVoteList(joinVoteArray(votesArray, 'damage'));
 
-
-    
-
-
-    //console.log(`Total Damage: ${totalDamage}`);
-    //console.log(`Total Votes: ${skillPercentage}`);
+    function joinVoteArray(arr, type) {
+      const voteValues = arr.map(obj => obj[type]);
+      return(`Votes: ${voteValues.join(', ')}`);
+    }
   }
 
-  function roundToNearest(num) {
-    if (num >= 0.5) {
-      return Math.round(num);
-    } else {
-      return Math.floor(num);
-    }
+  function closeResults() {
+    setShowVoteResult(false);
   }
   
 
@@ -65,9 +54,35 @@ function VoteResult() {
 
   return(
     <div className="vote-result">
-      <h1></h1>
-      <span>{skillPercentage}</span>
-      <span>{damage}</span>
+      <div className="title">
+        <h1>Results</h1>
+      </div>
+      <div className="content">
+        <div className="fate-result-cotnainer">
+          <h1>Fate</h1>
+          <div className="result-info">
+            <div className="result-box">
+              <p className="result">{fateResult}</p>
+            </div>
+            <div className="info-box">
+              <p className="avg-vote">{fateAvgVote ? (`Avg Vote: ${fateAvgVote}`) : null}</p>
+              <p className="votes">{fateVoteList}</p>
+            </div>
+          </div>
+
+        </div>
+        <div className="resolve-result-cotnainer">
+          <h1>Resolve Damage</h1>
+          <div className="result-info">
+            <div className="result-box">
+              <p className="result">{resolveResult}</p>
+            </div>
+            <div className="info-box">
+              <p className="votes">{resolveVoteList}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ function GmPage(props) {
 
   const socket = useContext(SocketContext);
 
-  const [timeLimit, setTimeLimit] = useState(7)
+  const [timeLimit, setTimeLimit] = useState(7000);
 
   function updateSlider(e) {
     setTimeLimit(e.target.value);
@@ -24,9 +24,19 @@ function GmPage(props) {
 
   return (
     <div className="gm-page">
-      <button onClick={handleClick}>Skill Check</button>
-      <input onChange={updateSlider} type="range" min="1" max="50" value={timeLimit} className="slider" id="myRange"></input>
-      <p>{timeLimit}s</p>
+      <div className="title">
+        <h1>GM Page</h1>
+      </div>
+      <div className="content">
+        <div className="time-range range-selector">
+          <div className="time-limit">
+            <h2>Time Limit</h2>
+            <p>{timeLimit}s</p>
+          </div>
+          <input onChange={updateSlider} type="range" min="1" max="50" value={timeLimit} className="range-slider" id="myRange"></input>
+        </div>
+        <button className="btn" onClick={handleClick}>Create Vote</button>
+      </div>
     </div>
   );
 }

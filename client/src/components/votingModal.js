@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import React, { useContext } from "react";
 import { SocketContext } from "../App"
+import RangeSlider from './rangeSlider';
 
 function VotingModal(props) {
 
@@ -38,14 +39,6 @@ function VotingModal(props) {
     }
   }, [timeCount]);
 
-
-  function handleClick(e) {
-    setVote(parseFloat(e.target.value));
-  }
-  function handleClickDamage(e) {
-    setDamage(parseInt(e.target.value));
-  }
-
   function sendData() {
     if (!vote || !damage) {
       console.log('ERROR: Did not answer in time');
@@ -57,21 +50,16 @@ function VotingModal(props) {
   }
 
   return (
-    <div className="voting-modal">
-      <h1>Decide the Outcome</h1>
-      <h2>Countdown</h2>
-      <span>{(timeCount / 1000).toString() + 's'}</span>
-      <h2>Likelyhood of Success</h2>
-      <button className="btn chanceBtn" value="0" onClick= {handleClick}>0%</button>
-      <button className="btn chanceBtn" value="0.25" onClick={handleClick}>25%</button>
-      <button className="btn chanceBtn" value="0.5" onClick={handleClick}>50%</button>
-      <button className="btn chanceBtn" value="0.75" onClick={handleClick}>75%</button>
-      <button className="btn chanceBtn" value="1" onClick={handleClick}>100%</button>
-      <h2>Resolve</h2>
-      <button className="btn chanceBtn" value="0" onClick= {handleClickDamage}>0</button>
-      <button className="btn chanceBtn" value="1" onClick= {handleClickDamage}>1</button>
-      <button className="btn chanceBtn" value="2" onClick={handleClickDamage}>2</button>
-      <button className="btn chanceBtn" value="3" onClick={handleClickDamage}>3</button>
+    <div className="page voting-modal">
+      <div className="title voting-modal-title">
+        <h1>Vote</h1>
+        <span>{(timeCount / 1000).toString()}</span>
+      </div>
+      <div className="content">
+        <RangeSlider min={0} max={10} className="my-range-slider" updateState={setVote} leftLabel='Easy' rightLabel='Impossible' title="Fate"/>
+        <RangeSlider min={0} max={3} className="my-range-slider" updateState={setDamage} leftLabel='0' rightLabel='3' title="Resolve"/>
+      </div>
+
     </div>
   );
 }
