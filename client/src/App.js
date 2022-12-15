@@ -1,3 +1,9 @@
+import io from "socket.io-client";
+import React from 'react';
+import { useEffect, useState } from "react";
+import { Switch, Route } from 'react-router-dom';
+
+// Files
 import "./App.css";
 
 // Pages
@@ -7,9 +13,7 @@ import PlayerPage from './components/playerPage';
 import VotingModal from './components/votingModal';
 import VoteResult from './components/voteResult';
 
-import io from "socket.io-client";
-import React from 'react';
-import { useEffect, useState } from "react";
+
 
 
 // Create a React context for the socket
