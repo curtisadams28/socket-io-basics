@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import React from 'react';
 import { useEffect, useState } from "react";
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 // Files
 import "./App.css";
@@ -13,12 +13,8 @@ import PlayerPage from './components/playerPage';
 import VotingModal from './components/votingModal';
 import VoteResult from './components/voteResult';
 
-
-
-
 // Create a React context for the socket
 const SocketContext = React.createContext(null);
-
 const socket = io.connect("http://192.168.1.120:3001");
 
 function App() {
@@ -29,6 +25,17 @@ function App() {
   const [showVoteResult, setShowVoteResult] = useState(false);
   const [voteResult, setVoteResult] = useState(null);
 
+  useEffect(() => {
+    console.log('location change');
+    if (playerType === null && window.location.pathname !== '/') {
+      console.log('no player type');
+      window.location.replace('http://192.168.1.120:3000')
+    }
+  }, [location])
+  
+
+
+  // Move these to the relevant components. Just switch pages instead of the props business.
   useEffect(() => {
     socket.on('receive_modal_info', (data) => {
       //console.log(data);
@@ -44,15 +51,23 @@ function App() {
     });
   }, [socket]);
 
+
+
   return (
     <div className="wrapper">
-      <SocketContext.Provider value={socket}>
-        <PlayerSelect playerType = {playerType} setPlayerType = {setPlayerType}/>
-        {(playerType === 'gm') ? <GmPage playerType = {playerType} voteModal = {voteModal} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>: null}
-        {(playerType === 'player') ? <PlayerPage />: null}
-        {voteModal ? <VotingModal voteModalTime = {voteModalTime} setVoteModal = {setVoteModal}/> : null }
-        {showVoteResult ? <VoteResult voteResult = {voteResult} setShowVoteResult = {setShowVoteResult}/> : null}
-      </SocketContext.Provider>
+
+      <BrowserRouter>
+        <SocketContext.Provider value={socket}>
+          <Routes>
+              <Route path="/" element={<PlayerSelect playerType = {playerType} setPlayerType = {setPlayerType}/>}/>
+              <Route path="GMScreen" element={<GmPage playerType = {playerType} voteModal = {voteModal} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>} />
+              <Route path="Player" element={<PlayerPage voteModal = {voteModal}/>} />
+              <Route path="Vote" element={<VotingModal voteModalTime = {voteModalTime} setVoteModal = {setVoteModal} showVoteResult = {showVoteResult}/>} />
+              <Route path="Result" element={<VoteResult voteResult = {voteResult} setShowVoteResult = {setShowVoteResult} playerType={playerType}/>} />
+            </Routes>
+
+        </SocketContext.Provider>
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,18 +1,30 @@
 import { useState, useEffect } from "react";
 import React, { useContext } from "react";
 import { SocketContext } from "../App"
+import { useNavigate } from "react-router-dom";
 
-function VoteResult({voteResult, setShowVoteResult}) {
+function VoteResult({voteResult, setShowVoteResult, playerType}) {
   const [fateResult, setFateResult] = useState(null);
   const [fateVoteList, setFateVoteList] = useState(null);
   const [fateAvgVote, setFateAvgVote] = useState(null);
   const [resolveResult, setResolveResult] = useState(null);
   const [resolveVoteList, setResolveVoteList] = useState(null);
 
+  const navigate = useNavigate();
+
   const socket = useContext(SocketContext);
 
   useEffect(() => {
-    getAverages(voteResult)
+
+    // Stops errors on page refresh.
+    if (voteResult === null) {
+      navigate('/');
+      
+    } else {
+      getAverages(voteResult);
+    }
+    console.log(voteResult);
+    
   }, [voteResult]);
 
   function getAverages(votesArray) {
@@ -40,6 +52,8 @@ function VoteResult({voteResult, setShowVoteResult}) {
 
   function closeResults() {
     setShowVoteResult(false);
+    console.log(playerType);
+    navigate(playerType);
   }
   
 
@@ -82,6 +96,7 @@ function VoteResult({voteResult, setShowVoteResult}) {
             </div>
           </div>
         </div>
+        <button className="btn" onClick={closeResults}>Close</button>
       </div>
     </div>
   );

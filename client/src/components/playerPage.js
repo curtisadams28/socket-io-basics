@@ -1,6 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function PlayerPage() {
+function PlayerPage(props) {
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.voteModal === true) {
+      navigate("../Vote");
+    }
+    
+  }, [props.voteModal]);
+
   return (
     <div className="player-page">
       <label>Name</label>

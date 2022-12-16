@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import React, { useContext } from "react";
 import { SocketContext } from "../App"
 import RangeSlider from './rangeSlider';
+import { useNavigate } from "react-router-dom";
 
 function VotingModal(props) {
+
+  const navigate = useNavigate();
 
   const socket = useContext(SocketContext);
 
@@ -48,6 +51,13 @@ function VotingModal(props) {
     }
     
   }
+
+  useEffect(() => {
+    if (props.showVoteResult === true) {
+      navigate("../Result");
+    }
+    
+  }, [props.showVoteResult]);
 
   return (
     <div className="page voting-modal">

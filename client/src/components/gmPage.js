@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import React, { useContext } from "react";
 import { SocketContext } from "../App"
+import { useNavigate } from "react-router-dom";
+
 
 function GmPage(props) {
 
   const socket = useContext(SocketContext);
 
   const [timeLimit, setTimeLimit] = useState(7000);
+
+  const navigate = useNavigate();
 
   function updateSlider(e) {
     setTimeLimit(e.target.value);
@@ -21,6 +25,13 @@ function GmPage(props) {
   function sendData() {
     socket.emit('start_vote', {setVoteModal: true, setVoteModalTime: timeLimit * 1000});
   }
+
+  useEffect(() => {
+    if (props.voteModal === true) {
+      navigate("../Vote");
+    }
+    
+  }, [props.voteModal]);
 
   return (
     <div className="gm-page">
