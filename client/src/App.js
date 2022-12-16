@@ -2,6 +2,7 @@ import io from "socket.io-client";
 import React from 'react';
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 
 // Files
 import "./App.css";
@@ -25,13 +26,7 @@ function App() {
   const [showVoteResult, setShowVoteResult] = useState(false);
   const [voteResult, setVoteResult] = useState(null);
 
-  useEffect(() => {
-    console.log('location change');
-    if (playerType === null && window.location.pathname !== '/') {
-      console.log('no player type');
-      window.location.replace('http://192.168.1.120:3000')
-    }
-  }, [location])
+
   
 
 
@@ -52,12 +47,21 @@ function App() {
   }, [socket]);
 
 
+  // Redirects the user to the homepage if they don't have a playerType. Will need to re-examine this.
+  useEffect(() => {
+    if (playerType === null && window.location.pathname !== '/') {
+      /* eslint-disable */ window.location.replace(''); 
+    }
+  }, [location])
+
+
 
   return (
     <div className="wrapper">
 
       <BrowserRouter>
         <SocketContext.Provider value={socket}>
+        
           <Routes>
               <Route path="/" element={<PlayerSelect playerType = {playerType} setPlayerType = {setPlayerType}/>}/>
               <Route path="GMScreen" element={<GmPage playerType = {playerType} voteModal = {voteModal} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>} />
