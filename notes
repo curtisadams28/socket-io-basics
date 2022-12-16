@@ -14,3 +14,11 @@
     });
   }, [socket]);
   */
+
+  /* 
+  Redirect on page refresh
+
+{(playerType === null && window.location.pathname != '/') ? <Navigate to="/" /> : null}
+{console.log(`URL: ${window.location.pathname} \nplayerType: ${playerType}`)}
+{(window.location.pathname !== '/' ? console.log('yes') : console.log('no'))}
+  */

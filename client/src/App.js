@@ -13,6 +13,7 @@ import GmPage from './components/gmPage';
 import PlayerPage from './components/playerPage';
 import VotingModal from './components/votingModal';
 import VoteResult from './components/voteResult';
+import RedirectToHomeOnRefresh from './components/redirectToHomeOnRefresh';
 
 // Create a React context for the socket
 const SocketContext = React.createContext(null);
@@ -25,6 +26,7 @@ function App() {
   const [voteModalTime, setVoteModalTime] = useState(4000);
   const [showVoteResult, setShowVoteResult] = useState(false);
   const [voteResult, setVoteResult] = useState(null);
+  const [redirected, setRedirected] = useState(false);
 
 
   
@@ -47,12 +49,7 @@ function App() {
   }, [socket]);
 
 
-  // Redirects the user to the homepage if they don't have a playerType. Will need to re-examine this.
-  useEffect(() => {
-    if (playerType === null && window.location.pathname !== '/') {
-      /* eslint-disable */ window.location.replace(''); 
-    }
-  }, [location])
+
 
 
 
@@ -61,7 +58,7 @@ function App() {
 
       <BrowserRouter>
         <SocketContext.Provider value={socket}>
-        
+        <RedirectToHomeOnRefresh />
           <Routes>
               <Route path="/" element={<PlayerSelect playerType = {playerType} setPlayerType = {setPlayerType}/>}/>
               <Route path="GMScreen" element={<GmPage playerType = {playerType} voteModal = {voteModal} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>} />
@@ -69,7 +66,6 @@ function App() {
               <Route path="Vote" element={<VotingModal voteModalTime = {voteModalTime} setVoteModal = {setVoteModal} showVoteResult = {showVoteResult}/>} />
               <Route path="Result" element={<VoteResult voteResult = {voteResult} setShowVoteResult = {setShowVoteResult} playerType={playerType}/>} />
             </Routes>
-
         </SocketContext.Provider>
       </BrowserRouter>
     </div>
