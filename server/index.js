@@ -12,7 +12,7 @@ const voteTimeout = 3000;
 
 const io = new Server(server, {
   cors: {
-    origin: "http://192.168.1.120:3000",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });

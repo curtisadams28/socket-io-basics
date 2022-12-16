@@ -17,7 +17,7 @@ import RedirectToHomeOnRefresh from './components/redirectToHomeOnRefresh';
 
 // Create a React context for the socket
 const SocketContext = React.createContext(null);
-const socket = io.connect("http://192.168.1.120:3001");
+const socket = io.connect("http://localhost:3001");
 
 function App() {
 
