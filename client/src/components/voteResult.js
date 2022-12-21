@@ -79,7 +79,7 @@ function VoteResult({voteResult, setShowVoteResult, playerType}) {
               <p className="result">{fateResult}</p>
             </div>
             <div className="info-box">
-              <p className="avg-vote">{fateAvgVote ? (`Avg Vote: ${fateAvgVote}`) : null}</p>
+              <p className="avg-vote">{fateAvgVote ? (`DC: ${fateAvgVote}`) : null}</p>
               <p className="votes">{fateVoteList}</p>
             </div>
           </div>
