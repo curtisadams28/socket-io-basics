@@ -4,7 +4,7 @@ import { SocketContext } from "../App"
 import { useNavigate } from "react-router-dom";
 
 
-function GmPage(props) {
+function CreateVotePage(props) {
 
   const socket = useContext(SocketContext);
 
@@ -28,7 +28,7 @@ function GmPage(props) {
 
   useEffect(() => {
     if (props.voteModal === true) {
-      navigate("../Vote");
+      navigate("../vote");
     }
     
   }, [props.voteModal]);
@@ -46,10 +46,18 @@ function GmPage(props) {
           </div>
           <input onChange={updateSlider} type="range" min="1" max="50" value={timeLimit} className="range-slider" id="myRange"></input>
         </div>
+        <div className="vote-options">
+          <h2>Vote Options</h2>
+          <input className='text-input' type='text' placeholder='Initiator'></input>
+          <input className='text-input' type='text' placeholder='Target'></input>
+        </div>
+        <div>
+          <h2>Damage</h2>
+        </div>
         <button className="btn" onClick={handleClick}>Create Vote</button>
       </div>
     </div>
   );
 }
 
-export default GmPage;
+export default CreateVotePage;

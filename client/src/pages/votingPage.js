@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import React, { useContext } from "react";
 import { SocketContext } from "../App"
-import RangeSlider from './rangeSlider';
+import RangeSlider from '../components/rangeSlider';
 import { useNavigate } from "react-router-dom";
 
-function VotingModal(props) {
+function VotingPage(props) {
 
   const navigate = useNavigate();
 
@@ -74,4 +74,4 @@ function VotingModal(props) {
   );
 }
 
-export default VotingModal;
+export default VotingPage;

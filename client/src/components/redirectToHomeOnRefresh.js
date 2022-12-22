@@ -8,7 +8,6 @@ function RedirectToHomeOnRefresh() {
   // Only triggeres on mount 
   useEffect(() => {
     if (location.pathname !== '/') {
-      console.log(location.pathname);
       navigate("/");
     }
   }, []);

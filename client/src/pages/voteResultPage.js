@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { SocketContext } from "../App"
 import { useNavigate } from "react-router-dom";
 
-function VoteResult({voteResult, setShowVoteResult, playerType}) {
+function VoteResultPage({voteResult, setShowVoteResult, playerType}) {
   const [fateResult, setFateResult] = useState(null);
   const [fateVoteList, setFateVoteList] = useState(null);
   const [fateAvgVote, setFateAvgVote] = useState(null);
@@ -102,4 +102,4 @@ function VoteResult({voteResult, setShowVoteResult, playerType}) {
   );
 }
 
-export default VoteResult;
+export default VoteResultPage;

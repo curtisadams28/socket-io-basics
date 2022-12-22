@@ -2,9 +2,10 @@
 
 :root {
     --body-bg: #2b2b2e;
-    --btn-bg: #724bbb;
+    --btn-bg: #2b2b2e;
     --btn-bg-focus: #3e2a63;
     --title: #FFFFFF;
+    --input-bg: #F8F8F8;
 }
 
 body {
@@ -75,6 +76,11 @@ body {
 
 .time-limit * {
     margin-top: 0;
+}
+
+.vote-options {
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -161,6 +167,20 @@ body {
     margin: 0;
 }
 
+
+/* TEXT INPUT */
+.text-input {
+  background-color: var(--input-bg);
+  border: 1px solid #BCBCBC;
+  border-radius: 10px;
+  height: 48px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+}
+.text-input::placeholder {
+  font-style: italic;
+  
+}
 
 
 

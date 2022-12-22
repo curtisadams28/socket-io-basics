@@ -8,11 +8,11 @@ import { Navigate } from "react-router-dom";
 import "./App.css";
 
 // Pages
-import PlayerSelect from './components/PlayerSelect';
-import GmPage from './components/gmPage';
-import PlayerPage from './components/playerPage';
-import VotingModal from './components/votingModal';
-import VoteResult from './components/voteResult';
+import SelectUserPage from './pages/selectUserPage';
+import CreateVotePage from './pages/createVotePage';
+import PlayerPage from './pages/playerPage';
+import VotingPage from './pages/votingPage';
+import VoteResultPage from './pages/voteResultPage';
 import RedirectToHomeOnRefresh from './components/redirectToHomeOnRefresh';
 
 // Create a React context for the socket
@@ -60,11 +60,11 @@ function App() {
         <SocketContext.Provider value={socket}>
         <RedirectToHomeOnRefresh />
           <Routes>
-              <Route path="/" element={<PlayerSelect playerType = {playerType} setPlayerType = {setPlayerType}/>}/>
-              <Route path="GMScreen" element={<GmPage playerType = {playerType} voteModal = {voteModal} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>} />
-              <Route path="Player" element={<PlayerPage voteModal = {voteModal}/>} />
-              <Route path="Vote" element={<VotingModal voteModalTime = {voteModalTime} setVoteModal = {setVoteModal} showVoteResult = {showVoteResult}/>} />
-              <Route path="Result" element={<VoteResult voteResult = {voteResult} setShowVoteResult = {setShowVoteResult} playerType={playerType}/>} />
+              <Route path="/" element={<SelectUserPage playerType = {playerType} setPlayerType = {setPlayerType}/>}/>
+              <Route path="create-vote" element={<CreateVotePage playerType = {playerType} voteModal = {voteModal} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>} />
+              <Route path="player" element={<PlayerPage voteModal = {voteModal}/>} />
+              <Route path="vote" element={<VotingPage voteModalTime = {voteModalTime} setVoteModal = {setVoteModal} showVoteResult = {showVoteResult}/>} />
+              <Route path="Result" element={<VoteResultPage voteResult = {voteResult} setShowVoteResult = {setShowVoteResult} playerType={playerType}/>} />
             </Routes>
         </SocketContext.Provider>
       </BrowserRouter>
