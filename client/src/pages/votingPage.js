@@ -66,8 +66,16 @@ function VotingPage(props) {
         <span>{(timeCount / 1000).toString()}</span>
       </div>
       <div className="content">
-        <RangeSlider min={0} max={20} className="my-range-slider" updateState={setVote} leftLabel='Easy' rightLabel='Impossible' title="Fate"/>
-        <RangeSlider min={0} max={10} className="my-range-slider" updateState={setDamage} leftLabel='0' rightLabel='9' title="Resolve"/>
+        <h2>Who Would Win?</h2>
+        <label class="btn big-radio-button">
+          <p>{props.initiator}</p>
+          <input type="radio" name="vote" />
+        </label>
+        <p className="vs">VS</p>
+        <label class="btn big-radio-button">
+          <p>{props.target}</p>
+          <input type="radio" name="vote" />
+        </label>
       </div>
 
     </div>

@@ -24,9 +24,12 @@ function App() {
   const [playerType, setPlayerType] = useState(null);
   const [voteModal, setVoteModal] = useState(false);
   const [voteModalTime, setVoteModalTime] = useState(4000);
+  const [initiator, setInitiator] = useState(null);
+  const [target, setTarget] = useState(null);
+  const [damage, setDamage] = useState(null);
   const [showVoteResult, setShowVoteResult] = useState(false);
   const [voteResult, setVoteResult] = useState(null);
-  const [redirected, setRedirected] = useState(false);
+
 
 
   
@@ -38,6 +41,9 @@ function App() {
       //console.log(data);
       setVoteModal(data.setVoteModal);
       setVoteModalTime(data.setVoteModalTime);
+      setInitiator(data.initiator);
+      setTarget(data.target);
+      setDamage(data.damage);
     });
   }, [socket]);
 
@@ -59,11 +65,11 @@ function App() {
       <BrowserRouter>
         <SocketContext.Provider value={socket}>
         <RedirectToHomeOnRefresh />
+        {(voteModal) ? <VotingPage voteModalTime = {voteModalTime} setVoteModal = {setVoteModal} showVoteResult = {showVoteResult} initiator={initiator} target={target}/> : null}
           <Routes>
               <Route path="/" element={<SelectUserPage playerType = {playerType} setPlayerType = {setPlayerType}/>}/>
-              <Route path="create-vote" element={<CreateVotePage playerType = {playerType} voteModal = {voteModal} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>} />
-              <Route path="player" element={<PlayerPage voteModal = {voteModal}/>} />
-              <Route path="vote" element={<VotingPage voteModalTime = {voteModalTime} setVoteModal = {setVoteModal} showVoteResult = {showVoteResult}/>} />
+              <Route path="create-vote" element={<CreateVotePage playerType = {playerType} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>} />
+              <Route path="player" element={<PlayerPage/>} />
               <Route path="Result" element={<VoteResultPage voteResult = {voteResult} setShowVoteResult = {setShowVoteResult} playerType={playerType}/>} />
             </Routes>
         </SocketContext.Provider>

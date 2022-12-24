@@ -33,16 +33,8 @@ function CreateVotePage(props) {
   }
 
   function handleDamageButton(e) {
-    console.log(e.target.value);
     setDamage(e.target.value)
   }
-
-  useEffect(() => {
-    if (props.voteModal === true) {
-      navigate("../vote");
-    }
-    
-  }, [props.voteModal]);
 
   return (
     <div className="gm-page">
