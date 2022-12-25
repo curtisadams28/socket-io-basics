@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { SocketContext } from "../App"
 import RangeSlider from '../components/rangeSlider';
 import { useNavigate } from "react-router-dom";
+import ButtonBar from "../components/buttonBar";
 
 function VotingPage(props) {
 
@@ -13,6 +14,7 @@ function VotingPage(props) {
   const [timeCount, setTimerCount] = useState(props.voteModalTime);
   const [vote, setVote] = useState(null);
   const [damage, setDamage] = useState(null);
+  const [winner, setWinner] = useState('none')
 
   // Creates the countdown timer.
   function createCountdown(time) {
@@ -52,6 +54,15 @@ function VotingPage(props) {
     
   }
 
+  function handleRadioButton(value) {
+    if (value === 1) {
+      setWinner('option1');
+    }  
+    if (value === 2) {
+      setWinner('option2');
+    }  
+  }
+
   useEffect(() => {
     if (props.showVoteResult === true) {
       navigate("../Result");
@@ -65,18 +76,21 @@ function VotingPage(props) {
         <h1>Vote</h1>
         <span>{(timeCount / 1000).toString()}</span>
       </div>
-      <div className="content">
+      <div className={`content radio-buttons ${winner}`}>
         <h2>Who Would Win?</h2>
-        <label class="btn big-radio-button">
+        <label onClick={() => handleRadioButton(1)} className="btn big-radio-button option1">
           <p>{props.initiator}</p>
           <input type="radio" name="vote" />
         </label>
         <p className="vs">VS</p>
-        <label class="btn big-radio-button">
+        <label onClick={() => handleRadioButton(2)} className="btn big-radio-button option2">
           <p>{props.target}</p>
           <input type="radio" name="vote" />
         </label>
+        <h2>Damage to {props.target}</h2>
+        <ButtonBar options={['0', '1-3', '4-6', '7-9']} values={['0', '1-3', '4-6', '7-9']} dataType='string' updateState={null}/>
       </div>
+
 
     </div>
   );
