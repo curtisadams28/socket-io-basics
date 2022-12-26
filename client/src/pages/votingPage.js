@@ -5,13 +5,13 @@ import RangeSlider from '../components/rangeSlider';
 import { useNavigate } from "react-router-dom";
 import ButtonBar from "../components/buttonBar";
 
-function VotingPage(props) {
+function VotingPage({voteModalTime, showVoteResult, setVoteModal, initiator, target}) {
 
   const navigate = useNavigate();
 
   const socket = useContext(SocketContext);
 
-  const [timeCount, setTimerCount] = useState(props.voteModalTime);
+  const [timeCount, setTimerCount] = useState(voteModalTime);
   const [vote, setVote] = useState(null);
   const [damage, setDamage] = useState(null);
   const [winner, setWinner] = useState('none')
@@ -40,7 +40,7 @@ function VotingPage(props) {
     if (timeCount <= 0) {
       // Send the data before the component stops rendering.
       sendData();
-      props.setVoteModal(false);
+      setVoteModal(false);
     }
   }, [timeCount]);
 
@@ -64,11 +64,11 @@ function VotingPage(props) {
   }
 
   useEffect(() => {
-    if (props.showVoteResult === true) {
+    if (showVoteResult === true) {
       navigate("../Result");
     }
     
-  }, [props.showVoteResult]);
+  }, [showVoteResult]);
 
   return (
     <div className="page voting-modal">
@@ -78,16 +78,16 @@ function VotingPage(props) {
       </div>
       <div className={`content radio-buttons ${winner}`}>
         <h2>Who Would Win?</h2>
-        <label onClick={() => handleRadioButton(1)} className="btn big-radio-button option1">
-          <p>{props.initiator}</p>
+        <label onClick={() => handleRadioButton(initiator)} className="btn big-radio-button option1">
+          <p>{initiator}</p>
           <input type="radio" name="vote" />
         </label>
         <p className="vs">VS</p>
-        <label onClick={() => handleRadioButton(2)} className="btn big-radio-button option2">
-          <p>{props.target}</p>
+        <label onClick={() => handleRadioButton(target)} className="btn big-radio-button option2">
+          <p>{target}</p>
           <input type="radio" name="vote" />
         </label>
-        <h2>Damage to {props.target}</h2>
+        <h2>Damage to {target}</h2>
         <ButtonBar options={['0', '1-3', '4-6', '7-9']} values={['0', '1-3', '4-6', '7-9']} dataType='string' updateState={null}/>
       </div>
 
