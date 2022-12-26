@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
     allVotes = [];
     io.sockets.emit("receive_modal_info", data);
 
-    let time = data.setVoteModalTime + voteTimeout;
+    let time = data.setShowVotePageTime + voteTimeout;
     const interval = setInterval(() => {
       time -= 1000;
       if (time <= 1000) {

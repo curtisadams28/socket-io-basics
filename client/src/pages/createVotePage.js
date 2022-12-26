@@ -21,7 +21,7 @@ function CreateVotePage(props) {
   }
 
   function createVote() {
-    socket.emit('start_vote', {setVoteModal: true, setVoteModalTime: timeLimit * 1000, initiator: initiator, target: target, damage: damage});
+    socket.emit('start_vote', {setShowVotePage: true, setShowVotePageTime: timeLimit * 1000, initiator: initiator, target: target, damage: damage});
   }
 
   function handleInitiator(e) {

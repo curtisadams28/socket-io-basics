@@ -22,8 +22,8 @@ const socket = io.connect("http://localhost:3001");
 function App() {
 
   const [playerType, setPlayerType] = useState(null);
-  const [voteModal, setVoteModal] = useState(false);
-  const [voteModalTime, setVoteModalTime] = useState(4000);
+  const [showVotePage, setShowVotePage] = useState(false);
+  const [votePageTime, setShowVotePageTime] = useState(4000);
   const [initiator, setInitiator] = useState(null);
   const [target, setTarget] = useState(null);
   const [damage, setDamage] = useState(null);
@@ -39,8 +39,8 @@ function App() {
   useEffect(() => {
     socket.on('receive_modal_info', (data) => {
       //console.log(data);
-      setVoteModal(data.setVoteModal);
-      setVoteModalTime(data.setVoteModalTime);
+      setShowVotePage(data.setShowVotePage);
+      setShowVotePageTime(data.setShowVotePageTime);
       setInitiator(data.initiator);
       setTarget(data.target);
       setDamage(data.damage);
@@ -65,10 +65,10 @@ function App() {
       <BrowserRouter>
         <SocketContext.Provider value={socket}>
         <RedirectToHomeOnRefresh />
-        {(voteModal) ? <VotingPage voteModalTime = {voteModalTime} setVoteModal = {setVoteModal} showVoteResult = {showVoteResult} initiator={initiator} target={target}/> : null}
+        {(showVotePage) ? <VotingPage votePageTime = {votePageTime} setShowVotePage = {setShowVotePage} showVoteResult = {showVoteResult} initiator={initiator} target={target}/> : null}
           <Routes>
               <Route path="/" element={<SelectUserPage playerType = {playerType} setPlayerType = {setPlayerType}/>}/>
-              <Route path="create-vote" element={<CreateVotePage playerType = {playerType} setVoteModalTime = {setVoteModalTime} voteModalTime = {voteModalTime}/>} />
+              <Route path="create-vote" element={<CreateVotePage playerType = {playerType} setShowVotePageTime = {setShowVotePageTime} votePageTime = {votePageTime}/>} />
               <Route path="player" element={<PlayerPage/>} />
               <Route path="Result" element={<VoteResultPage voteResult = {voteResult} setShowVoteResult = {setShowVoteResult} playerType={playerType}/>} />
             </Routes>
