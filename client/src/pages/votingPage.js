@@ -48,10 +48,11 @@ function VotingPage({votePageTime, showVoteResult, setShowVotePage, initiator, t
       return;
     } else {
       socket.emit('send_vote', {winner, damage});
-      navigate("../Result");
+      navigate("../results");
     }
     setWinner(null);
     setDamage(null);
+    setShowVotePage(false);
   }
 
   function cancelVote() {
@@ -61,10 +62,10 @@ function VotingPage({votePageTime, showVoteResult, setShowVotePage, initiator, t
 
   function handleRadioButton(value) {
     if (value === initiator) {
-      setWinner(initiator);
+      setWinner('initiator');
     }  
     if (value === target) {
-      setWinner(target);
+      setWinner('target');
     }  
   }
 
@@ -74,18 +75,14 @@ function VotingPage({votePageTime, showVoteResult, setShowVotePage, initiator, t
 
   function handleSendButton(e) {
     sendVote();
+    
   }
 
   function handleCancelButton(e) {
     cancelVote();
+    setShowVotePage(false);
   }
 
-  useEffect(() => {
-    if (showVoteResult === true) {
-      navigate("../Result");
-    }
-    
-  }, [showVoteResult]);
 
   return (
     <div className="page voting-modal">

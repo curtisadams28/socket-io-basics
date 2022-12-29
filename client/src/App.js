@@ -70,7 +70,7 @@ function App() {
               <Route path="/" element={<SelectUserPage playerType = {playerType} setPlayerType = {setPlayerType}/>}/>
               <Route path="create-vote" element={<CreateVotePage playerType = {playerType} setShowVotePageTime = {setShowVotePageTime} votePageTime = {votePageTime}/>} />
               <Route path="player" element={<PlayerPage/>} />
-              <Route path="Result" element={<VoteResultPage voteResult = {voteResult} setShowVoteResult = {setShowVoteResult} playerType={playerType}/>} />
+              <Route path="results" element={<VoteResultPage voteResult = {voteResult} setShowVoteResult = {setShowVoteResult} playerType={playerType}/>} />
             </Routes>
         </SocketContext.Provider>
       </BrowserRouter>

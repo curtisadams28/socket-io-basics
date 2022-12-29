@@ -51,9 +51,9 @@ function VoteResultPage({voteResult, setShowVoteResult, playerType}) {
   }
 
   function closeResults() {
-    setShowVoteResult(false);
+    //setShowVoteResult(false);
     console.log(playerType);
-    navigate(playerType);
+    //navigate(playerType);
   }
   
 
