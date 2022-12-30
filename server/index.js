@@ -31,8 +31,8 @@ io.on("connection", (socket) => {
     let voteWinner = null;
 
     // Who would win vote
-    (data.winner === 'initiator') ? voteTally[0]++ : null;
-    (data.winner === 'target') ? voteTally[1]++ : null;
+    (data.contestant === 'initiator') ? voteTally[0]++ : null;
+    (data.contestant === 'target') ? voteTally[1]++ : null;
 
     // Damage Vote
     let damage = data.damage;
@@ -54,16 +54,19 @@ io.on("connection", (socket) => {
         break;
     }
 
+    let contestantWinner = Math.max(...voteTally);
     let damageWinner = Math.max(...damageTally);
-    console.log(damageWinner);
+    
 
     /*
     let voteResult = {
-      winner: 
+      contestant: 
     }
     */
 
+    console.log(`contestant winner:${contestantWinner}`);
 
+    console.log(voteTally)
 
     console.log(damageTally);
 
@@ -73,7 +76,6 @@ io.on("connection", (socket) => {
 
   });
 
-  // R
   socket.on("start_vote", (data) => {
     console.log(data);
     voteOptions = data;

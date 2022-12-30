@@ -12,7 +12,7 @@ function VotingPage({votePageTime, showVoteResult, setShowVotePage, initiator, t
 
   const [timeCount, setTimerCount] = useState(votePageTime);
   const [damage, setDamage] = useState(null);
-  const [winner, setWinner] = useState('none')
+  const [contestant, setContestant] = useState('none')
 
   // Creates the countdown timer.
   function createCountdown(time) {
@@ -43,29 +43,29 @@ function VotingPage({votePageTime, showVoteResult, setShowVotePage, initiator, t
   }, [timeCount]);
 
   function sendVote() {
-    if (!winner || !damage) {
+    if (!contestant || !damage) {
       console.log('ERROR: Did not answer in time');
       return;
     } else {
-      socket.emit('send_vote', {winner, damage});
+      socket.emit('send_vote', {contestant, damage});
       navigate("../results");
     }
-    setWinner(null);
+    setContestant(null);
     setDamage(null);
     setShowVotePage(false);
   }
 
   function cancelVote() {
-    setWinner(null);
+    setContestant(null);
     setDamage(null);
   }
 
   function handleRadioButton(value) {
     if (value === initiator) {
-      setWinner('initiator');
+      setContestant('initiator');
     }  
     if (value === target) {
-      setWinner('target');
+      setContestant('target');
     }  
   }
 
@@ -90,7 +90,7 @@ function VotingPage({votePageTime, showVoteResult, setShowVotePage, initiator, t
         <h1>Vote</h1>
         <span>{(timeCount / 1000).toString()}</span>
       </div>
-      <div className={`content radio-buttons ${winner}`}>
+      <div className={`content radio-buttons ${contestant}`}>
         <h2>Who Would Win?</h2>
         <label onClick={() => handleRadioButton(initiator)} className="btn big-radio-button option1">
           <p>{initiator}</p>
