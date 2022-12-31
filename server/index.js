@@ -54,21 +54,21 @@ io.on("connection", (socket) => {
         break;
     }
 
-    let contestantWinner = Math.max(...voteTally);
-    let damageWinner = Math.max(...damageTally);
+    //let contestantWinner = voteTally.indexOf(Math.max(...voteTally));
+
+    let totalVotes = voteTally[0] + voteTally[1];
+    let targetPercentage = Math.round((voteTally[1] / totalVotes) * 100);
+    let initiatorPercentage = Math.round((voteTally[0] / totalVotes) * 100);
+
+    let contestantRoll = roll(1, 100);
+
+    let damageWinner = damageTally.indexOf(Math.max(...damageTally));
+    let damageRollRange = parseRange(damageNames[damageWinner])
+    let damageRoll = roll(damageRollRange.min, damageRollRange.max);
     
-
-    /*
-    let voteResult = {
-      contestant: 
-    }
-    */
-
-    console.log(`contestant winner:${contestantWinner}`);
-
-    console.log(voteTally)
-
-    console.log(damageTally);
+    console.log(`Initiator: ${initiatorPercentage}%`);
+    console.log(`Target: ${targetPercentage}%`);
+    console.log(`damage winner:${damageNames[damageWinner]}`);
 
 
  
@@ -98,8 +98,15 @@ server.listen(3001, () => {
   console.log("SERVER IS RUNNING");
 });
 
-function createCountdown(timeMax, voteTimeout) {
 
+function roll(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Converts '1-3' to { min: 1, max: 3 }
+function parseRange(range) {
+  let [min, max] = range.split('-').map(Number);
+  return { min, max };
 }
 
 /*
