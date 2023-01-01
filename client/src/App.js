@@ -51,6 +51,7 @@ function App() {
     socket.on('receive_vote', (data) => {
       setShowVoteResult(true);
       setVoteResult(data);
+      console.log(data);
     });
   }, [socket]);
 

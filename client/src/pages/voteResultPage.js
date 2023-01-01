@@ -3,101 +3,48 @@ import React, { useContext } from "react";
 import { SocketContext } from "../App"
 import { useNavigate } from "react-router-dom";
 
-function VoteResultPage({voteResult, setShowVoteResult, playerType}) {
-  const [fateResult, setFateResult] = useState(null);
-  const [fateVoteList, setFateVoteList] = useState(null);
-  const [fateAvgVote, setFateAvgVote] = useState(null);
-  const [resolveResult, setResolveResult] = useState(null);
-  const [resolveVoteList, setResolveVoteList] = useState(null);
 
-  const navigate = useNavigate();
+
+function VoteResultPage() {
+
+  const [initiator, setInitiator] = useState(null);
+  const [initiatorPercentage, setInitiatorPercentage] = useState(null);
+  const [target, setTarget] = useState(null);
+  const [targetPercentage, setTargetPercentage] = useState(null);
 
   const socket = useContext(SocketContext);
 
   useEffect(() => {
+    socket.on('update_percentages', (data) => {
+      console.log(data);
+      setInitiator(data.initiator);
+      setInitiatorPercentage(data.initiatorPercentage);
+      setTarget(data.target);
+      setTargetPercentage(data.targetPercentage);
 
-    // Stops errors on page refresh.
-    if (voteResult === null) {
-      navigate('/');
-      
-    } else {
-      getAverages(voteResult);
-    }
-    console.log(voteResult);
-    
-  }, [voteResult]);
 
-  function getAverages(votesArray) {
-    let totalSkillPercentage = 0;
-    let totalDamage = 0;
-    let dice = Math.floor(Math.random() * 11);
-
-    for (let i = 0; i < votesArray.length; i++) {
-      totalSkillPercentage += votesArray[i].vote;
-      totalDamage += votesArray[i].damage;
-    }
-
-    setFateResult(dice);
-    setFateAvgVote(Math.round(totalSkillPercentage / votesArray.length));
-    setFateVoteList(joinVoteArray(votesArray, 'vote'));
-
-    setResolveResult(Math.round(totalDamage / votesArray.length));
-    setResolveVoteList(joinVoteArray(votesArray, 'damage'));
-
-    function joinVoteArray(arr, type) {
-      const voteValues = arr.map(obj => obj[type]);
-      return(`Votes: ${voteValues.join(', ')}`);
-    }
-  }
-
-  function closeResults() {
-    //setShowVoteResult(false);
-    console.log(playerType);
-    //navigate(playerType);
-  }
-  
-
-  // The vote result should return the following:
-  // 1. Each vote in a list
-  // 2. Each damage in a list
-  // 3. Average Vote
-  // 4. Average Damage
-  // 5. The Roll
-  // 6. Success or Fail for votes
-
+    });
+  }, [socket]);
 
   return(
     <div className="vote-result">
-      <div className="title">
+      <div className="title voting-modal-title">
         <h1>Results</h1>
       </div>
-      <div className="content">
-        <div className="fate-result-cotnainer">
-          <h1>Fate</h1>
-          <div className="result-info">
-            <div className="result-box">
-              <p className="result">{fateResult}</p>
-            </div>
-            <div className="info-box">
-              <p className="avg-vote">{fateAvgVote ? (`DC: ${fateAvgVote}`) : null}</p>
-              <p className="votes">{fateVoteList}</p>
-            </div>
+      <div className="result-bar-container">
+          <div className="result-bar-labels">
+            <p className="result-bar-initiator">{initiator}</p>
+            <p className="result-bar-target">{target}</p>
           </div>
-
-        </div>
-        <div className="resolve-result-cotnainer">
-          <h1>Resolve Damage</h1>
-          <div className="result-info">
-            <div className="result-box">
-              <p className="result">{resolveResult}</p>
+          <div className="result-bar">
+            <div className="initiator-bar" style={{width: initiatorPercentage + '%'}}>
+              <p className="initiator-percentage">{initiatorPercentage}</p>
             </div>
-            <div className="info-box">
-              <p className="votes">{resolveVoteList}</p>
+            <div className="target-bar" style={{width: targetPercentage + '%'}}>
+              <p className="target-percentage">{targetPercentage}</p>
             </div>
           </div>
         </div>
-        <button className="btn" onClick={closeResults}>Close</button>
-      </div>
     </div>
   );
 }

@@ -48,7 +48,7 @@ function VotingPage({votePageTime, showVoteResult, setShowVotePage, initiator, t
       return;
     } else {
       socket.emit('send_vote', {contestant, damage});
-      navigate("../results");
+      navigate("/results");
     }
     setContestant(null);
     setDamage(null);

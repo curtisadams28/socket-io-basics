@@ -139,36 +139,38 @@ body {
 
 /* RESULTS PAGE */
 
-.result-info {
-  background-color: #e6e6e6;
+.result-bar-container {
+
+}
+
+.result-bar-labels {
   display: flex;
-  height: 80px;
 }
 
-.result-box {
-  background-color: #121213;
-  width: 80px;
+.result-bar-target {
+  margin-left: auto;
+}
+
+.result-bar {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgb(255, 96, 96);
-  font-weight: bold;
-  font-size: 3em;
+  width: 100%;
+  color: var(--text-color);
+  border: 1px solid transparent;
+  border-radius: 5px;
 }
 
-.info-box {
-  font-weight: bold;
-  margin: 0 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-content: center;
-
+.initiator-bar {
+  width: 50%;
+  background-color: var(--body-bg);
+  transition: 0.5s ease-in-out;
 }
 
-.info-box * {
-  margin: 0;
+.target-bar {
+  width: 50%;
+  background-color: var(--btn-bg-focus);
+  transition: 0.5s ease-in-out;
 }
+
 
 
 /* TEXT INPUT */
